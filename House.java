@@ -52,7 +52,7 @@ public class House extends Residence {
     public int reserve (LocalDate checkIn, LocalDate checkOut) {  //does not work properly
 
         this.numberOfResidenceAvailable--;
-        int numberOfNights = CalendarDisplay.getNumberBetweenDates(checkIn,checkOut);
+        int numberOfNights = getNumberBetweenDates(checkIn,checkOut);
         if(numberOfNights<=this.periodOfLateReservation){
             return (numberOfNights*this.getCost())+this.priceLateReservation;
         }

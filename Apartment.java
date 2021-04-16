@@ -56,7 +56,7 @@ public class Apartment extends  Residence{
             System.out.println("No free rooms");}
 
             this.numberOfResidenceAvailable--;
-            int numberOfNights = CalendarDisplay.getNumberBetweenDates(checkIn, checkOut);
+            int numberOfNights = getNumberBetweenDates(checkIn, checkOut);
             if (numberOfNights <= this.periodOfLateReservation) {
                 return (numberOfNights * this.getCost()) + this.priceLateReservation;
             }

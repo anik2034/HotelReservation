@@ -2,6 +2,8 @@
 
 import java.time.LocalDate;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 public abstract class Residence {
     // abstract class
     // the base for apartment and house classes
@@ -162,7 +164,10 @@ public abstract class Residence {
 
 
 
-
+    public static int getNumberBetweenDates(LocalDate start, LocalDate end){
+        long noOfDaysBetween = DAYS.between(start, end);
+        return (int)noOfDaysBetween;
+    }
     public abstract int getCost();
     public abstract int reserve (LocalDate checkIn, LocalDate checkOut);
 }
