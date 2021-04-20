@@ -17,7 +17,6 @@ public class House extends Residence {
             boolean includesDinner,
             boolean includesThreeMeals,
             int numberOfHousesInHotelTotal,
-            int numberOfResidenceAvailable,
             int numberOfBathrooms)
 
     {
@@ -33,31 +32,33 @@ public class House extends Residence {
                 includesDinner,
                 includesThreeMeals,
                 numberOfHousesInHotelTotal,
-          numberOfResidenceAvailable,
                 numberOfBathrooms);
     }
 
+    House(House h){
+        super(h);
+    }
+
 
 
     @Override
-    public int getCost() {
-
-        if(this.includesBreakfast) return this.costWithBreakfast;
-        else if(this.includesDinner) return this.costWithDinner;
-        else if(this.includesThreeMeals) return this.costWithThreeMeals;
-        else return this.standardCost;
+    public int getCostPerNight() {
+        if(this.isIncludesBreakfast()) return this.getCostWithBreakfast();
+        else if(this.isIncludesDinner()) return this.getCostWithDinner();
+        else if(this.isIncludesThreeMeals()) return this.getCostWithThreeMeals();
+        else return this.getStandardCost();
     }
 
     @Override
-    public int reserve (LocalDate checkIn, LocalDate checkOut) {  //does not work properly
-
-        this.numberOfResidenceAvailable--;
-        int numberOfNights = getNumberBetweenDates(checkIn,checkOut);
-        if(numberOfNights<=this.periodOfLateReservation){
-            return (numberOfNights*this.getCost())+this.priceLateReservation;
+    public int getFullCost(ReservationDate date) {
+        int numberOfNights = date.getNumberBetweenDates();
+        int costPerNight = this.getCostPerNight();
+        if (numberOfNights <= this.getPeriodOfLateReservation()) {
+            return (numberOfNights * costPerNight) + this.getPriceLateReservation();
         }
-        return numberOfNights*this.getCost();
+        return numberOfNights *costPerNight;
     }
+
 
 
 }

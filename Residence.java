@@ -8,20 +8,19 @@ public abstract class Residence {
     // abstract class
     // the base for apartment and house classes
     // needs getCost and reserve methods
-    protected int standardCost;
-    protected int priceLateReservation;
-    protected int periodOfLateReservation;
-    protected int costWithBreakfast;
-    protected int costWithDinner;
-    protected int costWithThreeMeals;
-    protected String name;
-    protected int numberOfBeds;
-    protected boolean includesBreakfast;
-    protected boolean includesDinner;
-    protected boolean includesThreeMeals;
-    protected int numberOfResidenceInHotelTotal;
-    protected int numberOfResidenceAvailable;
-    protected int numberOfBathrooms;
+    private int standardCost;
+    private int priceLateReservation;
+    private int periodOfLateReservation;
+    private int costWithBreakfast;
+    private int costWithDinner;
+    private int costWithThreeMeals;
+    private String name;
+    private int numberOfBeds;
+    private boolean includesBreakfast;
+    private boolean includesDinner;
+    private boolean includesThreeMeals;
+    private int numberOfResidenceInHotel;
+    private int numberOfBathrooms;
 
 
     public Residence(int standardCost,
@@ -35,10 +34,9 @@ public abstract class Residence {
                      boolean includesBreakfast,
                      boolean includesDinner,
                      boolean includesThreeMeals,
-                     int numberOfApartmentsInHotel,
-                     int numberOfResidenceAvailable,
+                     int numberOfResidenceInHotel,
                      int numberOfBathrooms){
-                  //   CalendarDate date) {
+
         this.standardCost = standardCost;
         this.priceLateReservation = priceLateReservation;
         this.periodOfLateReservation=periodOfLateReservation;
@@ -50,10 +48,25 @@ public abstract class Residence {
         this.includesBreakfast = includesBreakfast;
         this.includesDinner = includesDinner;
         this.includesThreeMeals = includesThreeMeals;
-        this.numberOfResidenceInHotelTotal = numberOfApartmentsInHotel;
-        this.numberOfResidenceAvailable=numberOfResidenceAvailable;
+        this.numberOfResidenceInHotel = numberOfResidenceInHotel;
         this.numberOfBathrooms=numberOfBathrooms;
-        //this.date= new CalendarDate(date);
+
+    }
+    Residence(Residence r){
+        this.standardCost = r.standardCost;
+        this.priceLateReservation = r.priceLateReservation;
+        this.periodOfLateReservation= r.periodOfLateReservation;
+        this.costWithBreakfast = r.costWithBreakfast;
+        this.costWithDinner = r.costWithDinner;
+        this.costWithThreeMeals = r.costWithThreeMeals;
+        this.name = r.name;
+        this.numberOfBeds = r.numberOfBeds;
+        this.includesBreakfast = r.includesBreakfast;
+        this.includesDinner = r.includesDinner;
+        this.includesThreeMeals = r.includesThreeMeals;
+        this.numberOfResidenceInHotel= r.numberOfResidenceInHotel;
+        this.numberOfBathrooms=r.numberOfBathrooms;
+
     }
 
     public int getStandardCost() {
@@ -71,6 +84,9 @@ public abstract class Residence {
     public void setPriceLateReservation(int priceLateReservation) {
         this.priceLateReservation = priceLateReservation;
     }
+    public int getPeriodOfLateReservation() { return periodOfLateReservation; }
+
+    public void setPeriodOfLateReservation(int periodOfLateReservation) { this.periodOfLateReservation = periodOfLateReservation; }
 
     public int getCostWithBreakfast() {
         return costWithBreakfast;
@@ -136,22 +152,13 @@ public abstract class Residence {
         this.includesThreeMeals = includesThreeMeals;
     }
 
-    public int getNumberOfApartmentsInHotel() {
-        return numberOfResidenceInHotelTotal;
+    public int getNumberOfResidenceInHotel() {
+        return numberOfResidenceInHotel;
     }
 
-    public void setNumberOfApartmentsInHotel(int numberOfApartmentsInHotel) {
-        this.numberOfResidenceInHotelTotal = numberOfApartmentsInHotel;
+    public void setNumberOfResidenceInHotel(int numberOfApartmentsInHotel) {
+        this.numberOfResidenceInHotel = numberOfApartmentsInHotel;
     }
-    public int getNumberOfResidenceAvailable() {
-        if(this.numberOfResidenceAvailable<=0) return 0;
-        else return this.numberOfResidenceAvailable;
-    }
-
-    public void setNumberOfResidenceAvailable(int numberOfResidenceAvailable) {
-        this.numberOfResidenceAvailable = numberOfResidenceAvailable;
-    }
-
 
     public int getNumberOfBathrooms() {
         return numberOfBathrooms;
@@ -164,10 +171,8 @@ public abstract class Residence {
 
 
 
-    public static int getNumberBetweenDates(LocalDate start, LocalDate end){
-        long noOfDaysBetween = DAYS.between(start, end);
-        return (int)noOfDaysBetween;
-    }
-    public abstract int getCost();
-    public abstract int reserve (LocalDate checkIn, LocalDate checkOut);
+
+    public abstract int getCostPerNight();
+    public abstract int getFullCost(ReservationDate date);
+
 }
