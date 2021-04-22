@@ -1,81 +1,44 @@
-
-
-import java.time.LocalDate;
-
-import static java.time.temporal.ChronoUnit.DAYS;
-
-public abstract class Residence {
-    // abstract class
-    // the base for apartment and house classes
-    // needs getCost and reserve methods
-    private int standardCost;
+public class Room implements Cloneable {
+    private String name;
     private int priceLateReservation;
     private int periodOfLateReservation;
     private int costWithBreakfast;
-    private int costWithDinner;
     private int costWithThreeMeals;
-    private String name;
     private int numberOfBeds;
     private boolean includesBreakfast;
-    private boolean includesDinner;
     private boolean includesThreeMeals;
-    private int numberOfResidenceInHotel;
+    private int numberOfRoomsInHotel;
     private int numberOfBathrooms;
 
 
-    public Residence(int standardCost,
+    public Room(
                      int priceLateReservation,
                      int periodOfLateReservation,
                      int costWithBreakfast,
-                     int costWithDinner,
                      int costWithThreeMeals,
                      String name,
                      int numberOfBeds,
                      boolean includesBreakfast,
-                     boolean includesDinner,
                      boolean includesThreeMeals,
-                     int numberOfResidenceInHotel,
+                     int numberOfRoomsInHotel,
                      int numberOfBathrooms){
 
-        this.standardCost = standardCost;
+
         this.priceLateReservation = priceLateReservation;
         this.periodOfLateReservation=periodOfLateReservation;
         this.costWithBreakfast = costWithBreakfast;
-        this.costWithDinner = costWithDinner;
         this.costWithThreeMeals = costWithThreeMeals;
         this.name = name;
         this.numberOfBeds = numberOfBeds;
         this.includesBreakfast = includesBreakfast;
-        this.includesDinner = includesDinner;
         this.includesThreeMeals = includesThreeMeals;
-        this.numberOfResidenceInHotel = numberOfResidenceInHotel;
+        this.numberOfRoomsInHotel = numberOfRoomsInHotel;
         this.numberOfBathrooms=numberOfBathrooms;
 
     }
-    Residence(Residence r){
-        this.standardCost = r.standardCost;
-        this.priceLateReservation = r.priceLateReservation;
-        this.periodOfLateReservation= r.periodOfLateReservation;
-        this.costWithBreakfast = r.costWithBreakfast;
-        this.costWithDinner = r.costWithDinner;
-        this.costWithThreeMeals = r.costWithThreeMeals;
-        this.name = r.name;
-        this.numberOfBeds = r.numberOfBeds;
-        this.includesBreakfast = r.includesBreakfast;
-        this.includesDinner = r.includesDinner;
-        this.includesThreeMeals = r.includesThreeMeals;
-        this.numberOfResidenceInHotel= r.numberOfResidenceInHotel;
-        this.numberOfBathrooms=r.numberOfBathrooms;
 
-    }
 
-    public int getStandardCost() {
-        return standardCost;
-    }
 
-    public void setStandardCost(int standardCost) {
-        this.standardCost = standardCost;
-    }
 
     public int getPriceLateReservation() {
         return priceLateReservation;
@@ -94,14 +57,6 @@ public abstract class Residence {
 
     public void setCostWithBreakfast(int costWithBreakfast) {
         this.costWithBreakfast = costWithBreakfast;
-    }
-
-    public int getCostWithDinner() {
-        return costWithDinner;
-    }
-
-    public void setCostWithDinner(int costWithDinner) {
-        this.costWithDinner = costWithDinner;
     }
 
     public int getCostWithThreeMeals() {
@@ -136,14 +91,6 @@ public abstract class Residence {
         this.includesBreakfast = includesBreakfast;
     }
 
-    public boolean isIncludesDinner() {
-        return includesDinner;
-    }
-
-    public void setIncludesDinner(boolean includesDinner) {
-        this.includesDinner = includesDinner;
-    }
-
     public boolean isIncludesThreeMeals() {
         return includesThreeMeals;
     }
@@ -152,12 +99,12 @@ public abstract class Residence {
         this.includesThreeMeals = includesThreeMeals;
     }
 
-    public int getNumberOfResidenceInHotel() {
-        return numberOfResidenceInHotel;
+    public int getNumberOfRoomsInHotel() {
+        return numberOfRoomsInHotel;
     }
 
-    public void setNumberOfResidenceInHotel(int numberOfApartmentsInHotel) {
-        this.numberOfResidenceInHotel = numberOfApartmentsInHotel;
+    public void setNumberOfRoomsInHotel(int numberOfApartmentsInHotel) {
+        this.numberOfRoomsInHotel = numberOfApartmentsInHotel;
     }
 
     public int getNumberOfBathrooms() {
@@ -172,7 +119,54 @@ public abstract class Residence {
 
 
 
-    public abstract int getCostPerNight();
-    public abstract int getFullCost(ReservationDate date);
+
+
+
+
+    public int getCostPerNight() {
+
+        if(this.isIncludesThreeMeals()) return this.getCostWithThreeMeals();
+        return this.getCostWithBreakfast();
+
+    }
+
+
+    public int getFullCost(ReservationDate date) {
+        int numberOfNights = date.getNumberBetweenDates();
+        int costPerNight = this.getCostPerNight();
+            if (numberOfNights <= this.getPeriodOfLateReservation()) {
+                return (numberOfNights * costPerNight) + this.getPriceLateReservation();
+            }
+            return numberOfNights *costPerNight;
+    }
+
+
+    public Room clone() {
+        Room copy = null;
+        try {
+            copy = (Room) super.clone();
+
+        }
+        catch (Exception e){
+            System.out.println("Something went wrong in Room");
+        }
+        return copy;
+    }
+    public String mealPlan(){
+        if(this.includesBreakfast)return "Breakfast";
+        else if(this.includesThreeMeals) return "Three Meals";
+        return "No Meal";
+    }
+
+    public String toString(ReservationDate date){
+        return "Room " +
+                "\nName: "+this.name+
+                "\nNumber of beds: "+this.numberOfBeds+
+                "\nNumber of bathrooms "+this.numberOfBathrooms+
+                "\nMeal Plan: "+this.mealPlan()+
+                "\nPrice for the stay "+this.getFullCost(date);
+    }
+
+
 
 }

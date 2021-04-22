@@ -8,8 +8,8 @@ public class Hotel implements Cloneable {
    private boolean hasParking;
    private boolean hasSwimmingPool;
    private boolean hasGYM;
-   private Apartment[] typesOfApartments;
-   private House[] typesOfHouses;
+   private Room[] typesOfRooms;
+
 
 
 
@@ -22,9 +22,7 @@ public class Hotel implements Cloneable {
                 boolean hasParking,
                 boolean hasSwimmingPool,
                 boolean hasGYM,
-                boolean hasApartment,
-                Apartment[] typesOfApartments,
-                House[] typesOfHouses) {
+                Room[] typesOfRooms) {
       this.numberOfStars = numberOfStars;
       this.name = name;
       this.city = city;
@@ -32,8 +30,8 @@ public class Hotel implements Cloneable {
       this.hasParking = hasParking;
       this.hasSwimmingPool = hasSwimmingPool;
       this.hasGYM = hasGYM;
-      this.typesOfApartments = getTypesOfApartments();
-      this.typesOfHouses=getTypesOfHouses();
+      this.setTypesOfRooms(typesOfRooms);
+
    }
 
    Hotel(Hotel h){   //copy constructor
@@ -43,8 +41,8 @@ public class Hotel implements Cloneable {
       this.hasParking = h.hasParking;
       this.hasSwimmingPool = h.hasSwimmingPool;
       this.hasGYM = h.hasGYM;
-      this.typesOfApartments = getTypesOfApartments();
-      this.typesOfHouses=getTypesOfHouses();
+      this.setTypesOfRooms(h.getTypesOfRooms());
+
 
    }
 
@@ -104,35 +102,39 @@ public class Hotel implements Cloneable {
       this.hasGYM = hasGYM;
    }
 
-   public Apartment[] getTypesOfApartments() {                                      // trying to do a deep copy Apartment[]
-      Apartment[] typesOfApartmentsCopy = new Apartment[this.typesOfApartments.length];
-      for(int i=0; i<this.typesOfApartments.length; i++){
-         typesOfApartmentsCopy[i] = new Apartment(this.typesOfApartments[i]);
+   public Room[] getTypesOfRooms() {                                      // trying to do a deep copy Room[]
+      Room[] typesOfApartmentsCopy= new Room[this.typesOfRooms.length];
+      for(int i=0; i<this.typesOfRooms.length; i++){
+         typesOfApartmentsCopy[i] = this.typesOfRooms[i].clone();
       }
       return typesOfApartmentsCopy;
    }
 
-   public void setTypesOfApartments(Apartment[] typesOfApartments) {               // trying to do a deep copy Apartment[]
-      Apartment[] typesOfApartmentsCopy = new Apartment[this.typesOfApartments.length];
-      for(int i=0; i<this.typesOfApartments.length; i++){
-         typesOfApartmentsCopy[i] = new Apartment(this.typesOfApartments[i]);
+   public void setTypesOfRooms(Room[] typesOfRooms) {               // trying to do a deep copy Room[]
+      this.typesOfRooms = new Room[typesOfRooms.length];
+      for(int i=0; i<typesOfRooms.length; i++){
+         this.typesOfRooms[i] = typesOfRooms[i].clone();
       }
    }
 
-   public House[] getTypesOfHouses() {     // trying to do a deep copy of House[]
-      House[] typesOfHousesCopy = new House[this.typesOfHouses.length];
-      for(int i=0; i<this.typesOfHouses.length; i++){
-         typesOfHousesCopy[i]= new House(this.typesOfHouses[i]);
-      }
-      return typesOfHouses;
-
+   public String booleanToString(boolean b){
+      if(b==false) return "Does not have";
+      return "has";
    }
 
-   public void setTypesOfHouses(House[] typesOfHouses) {  // trying to do a deep copy House[]
-      House[] typesOfHousesCopy = new House[typesOfHouses.length];
-      for(int i=0; i<typesOfHouses.length; i++){
-         typesOfHousesCopy[i]= new House(this.typesOfHouses[i]);
-      }
+
+
+   public String toString(){
+
+      return  "Number of Stars: "+this.numberOfStars+
+              "\nName: "+this.name+
+              "\nCity: "+this.city+
+              "\nAddress: "+this.address+
+              "\n"+booleanToString(this.hasParking)+" Parking"+
+              "\n"+booleanToString(this.hasSwimmingPool)+" Swimming Pool"+
+              "\n"+booleanToString(this.hasGYM)+" GYM";
+
+
    }
 
 
