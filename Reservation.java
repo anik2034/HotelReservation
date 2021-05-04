@@ -1,15 +1,61 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class Reservation {
-    // still not ready, idk how to do reservations and count the free rooms on the date.
-    private User user;
-    private ReservationDate date;
     private Room room;
 
-    public Reservation(User user, ReservationDate date, Room room) {
-        this.user = new User(user);
-        this.date = new ReservationDate(date);
-        this.room = room.clone();
-
+    public Room getRoom() {
+        return room;
     }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public LocalDate getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(LocalDate checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public LocalDate getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(LocalDate checkOut) {
+        this.checkOut = checkOut;
+    }
+
+    private LocalDate checkIn;
+    private LocalDate checkOut;
+    private User user;
+
+    Reservation(Room room, LocalDate checkIn,LocalDate checkOut,User user){
+        this.room=room;
+        this.checkIn=checkIn;
+        this.checkOut=checkOut;
+        this.user=user;
+    }
+
+
+    public String toString(){
+        return room.toString(checkIn,checkOut);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
