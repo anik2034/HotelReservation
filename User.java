@@ -1,6 +1,5 @@
 public class User {
 
-    //info about user
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -28,20 +27,6 @@ public class User {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

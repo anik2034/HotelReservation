@@ -6,19 +6,6 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class Room  {
     private String name;
     private boolean breakfast;
-
-    public boolean isBreakfast() {
-        return breakfast;
-    }
-
-    public boolean isThreeMeals() {
-        return threeMeals;
-    }
-
-    public int getNumberOfBeds() {
-        return numberOfBeds;
-    }
-
     private boolean threeMeals;
     private int numberOfBeds;
     private int costWithBreakfast;
@@ -44,6 +31,17 @@ public class Room  {
 
 
     }
+    public boolean isBreakfast() {
+        return breakfast;
+    }
+
+    public boolean isThreeMeals() {
+        return threeMeals;
+    }
+
+    public int getNumberOfBeds() {
+        return numberOfBeds;
+    }
     public static int getNumberBetweenDates(LocalDate checkIn, LocalDate checkOut){
         long numberOfDaysBetween = DAYS.between(checkIn, checkOut);
         return (int)numberOfDaysBetween;
@@ -60,12 +58,21 @@ public class Room  {
         return "Three Meals";
 
     }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
     public String toString(LocalDate checkIn, LocalDate checkOut){
         return "Room " + number+
                 "\nName: "+this.name+
                 "\nNumber of beds: "+this.numberOfBeds+
                 "\nMeal Plan: "+this.mealPlan()+
-                "\nPrice for the stay from "+checkIn.toString()+" to "+checkOut.toString()+":"+this.getFullCost(checkIn,checkOut)+"\n";
+                "\nPrice for the stay from "+checkIn.toString()+" to "+checkOut.toString()+": "+this.getFullCost(checkIn,checkOut)+"AMD\n";
     }
 
     public void reserve(LocalDate checkIn, LocalDate checkOut,User user){

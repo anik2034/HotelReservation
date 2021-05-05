@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 
 public class Reservation {
     private Room room;
@@ -43,22 +43,4 @@ public class Reservation {
     public String toString(){
         return room.toString(checkIn,checkOut);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
