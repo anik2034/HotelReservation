@@ -3,36 +3,25 @@ import java.time.LocalDate;
 
 public class Reservation {
     private Room room;
+    private LocalDate checkIn;          //reservation properties
+    private LocalDate checkOut;
+    private User user;
 
     public Room getRoom() {
         return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
     }
 
     public LocalDate getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(LocalDate checkIn) {
-        this.checkIn = checkIn;
-    }
-
     public LocalDate getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(LocalDate checkOut) {
-        this.checkOut = checkOut;
-    }
 
-    private LocalDate checkIn;
-    private LocalDate checkOut;
-    private User user;
 
-    Reservation(Room room, LocalDate checkIn,LocalDate checkOut,User user){
+    Reservation(Room room, LocalDate checkIn,LocalDate checkOut,User user){  //constructor
         this.room=room;
         this.checkIn=checkIn;
         this.checkOut=checkOut;
@@ -41,6 +30,6 @@ public class Reservation {
 
 
     public String toString(){
-        return room.toString(checkIn,checkOut);
+        return "Room "+ room.getNumber()+" is reserved by "+user.toString();
     }
 }

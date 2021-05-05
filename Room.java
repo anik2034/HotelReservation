@@ -7,7 +7,7 @@ public class Room  {
     private String name;
     private boolean breakfast;
     private boolean threeMeals;
-    private int numberOfBeds;
+    private int numberOfBeds;                   //room properties
     private int costWithBreakfast;
     private int costWithThreeMeals;
     private int number;
@@ -31,6 +31,8 @@ public class Room  {
 
 
     }
+
+
     public boolean isBreakfast() {
         return breakfast;
     }
@@ -42,32 +44,32 @@ public class Room  {
     public int getNumberOfBeds() {
         return numberOfBeds;
     }
+
+    public int getNumber() {
+        return number;
+    }
+
+
     public static int getNumberBetweenDates(LocalDate checkIn, LocalDate checkOut){
-        long numberOfDaysBetween = DAYS.between(checkIn, checkOut);
+        long numberOfDaysBetween = DAYS.between(checkIn, checkOut);                 // static method that return the number between rwo dates
         return (int)numberOfDaysBetween;
     }
     public int getFullCost(LocalDate checkIn, LocalDate checkOut) {
-        int numberOfNights = getNumberBetweenDates(checkIn,checkOut);
+        int numberOfNights = getNumberBetweenDates(checkIn,checkOut);               // return full cost for that room for that date
         if(breakfast) return numberOfNights*costWithBreakfast;
         return numberOfNights*costWithThreeMeals;
 
 
     }
     public String mealPlan(){
-        if(this.breakfast) return "Breakfast";
+        if(this.breakfast) return "Breakfast";          // return the chosen meal plan as a string
         return "Three Meals";
 
     }
 
-    public int getNumber() {
-        return number;
-    }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
 
-    public String toString(LocalDate checkIn, LocalDate checkOut){
+    public String toString(LocalDate checkIn, LocalDate checkOut){   //returns Room's description
         return "Room " + number+
                 "\nName: "+this.name+
                 "\nNumber of beds: "+this.numberOfBeds+
@@ -75,10 +77,11 @@ public class Room  {
                 "\nPrice for the stay from "+checkIn.toString()+" to "+checkOut.toString()+": "+this.getFullCost(checkIn,checkOut)+"AMD\n";
     }
 
-    public void reserve(LocalDate checkIn, LocalDate checkOut,User user){
-        reservations.add(new Reservation(this,checkIn,checkOut,user));
+    public void reserve(LocalDate checkIn, LocalDate checkOut,User user){          //reserves the room for that date by adding new Reservation
+        reservations.add(new Reservation(this,checkIn,checkOut,user));       // to the reservations list
     }
-    public boolean isAvailable(LocalDate checkIn, LocalDate checkOut){
+
+    public boolean isAvailable(LocalDate checkIn, LocalDate checkOut){   //check if the Room is available for that date
         int x=0;
         if(reservations.size()==0) return true;
          else {

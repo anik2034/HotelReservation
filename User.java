@@ -1,12 +1,12 @@
 public class User {
 
     private String firstName;
-    private String lastName;
+    private String lastName;      //user properties
     private String phoneNumber;
 
 
     User(String firstName, String lastName, String phoneNumber) {
-        this.firstName = firstName;
+        this.firstName = firstName;                        //constructor
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
     }
@@ -28,5 +28,8 @@ public class User {
         return phoneNumber;
     }
 
-
+    @Override
+    public String toString() {
+        return firstName+" "+lastName;
+    }
 }
