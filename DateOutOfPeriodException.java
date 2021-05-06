@@ -1,5 +1,8 @@
 public class DateOutOfPeriodException extends Exception{
     public DateOutOfPeriodException() {
-        super();
+        super("DateOutOfPeriodException");
+    }
+    public DateOutOfPeriodException(String message) {
+       super(message);
     }
 }

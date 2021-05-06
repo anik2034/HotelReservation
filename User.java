@@ -1,7 +1,7 @@
 public class User {
 
     private String firstName;
-    private String lastName;      //user properties
+    private String lastName;                               //user properties
     private String phoneNumber;
 
 

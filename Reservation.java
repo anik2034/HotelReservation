@@ -1,6 +1,8 @@
 import java.time.LocalDate;
 
 
+
+
 public class Reservation {
     private Room room;
     private LocalDate checkIn;          //reservation properties
@@ -21,15 +23,20 @@ public class Reservation {
 
 
 
-    Reservation(Room room, LocalDate checkIn,LocalDate checkOut,User user){  //constructor
+    Reservation(Residence residence, LocalDate checkIn,LocalDate checkOut,User user){  //constructor
         this.room=room;
         this.checkIn=checkIn;
         this.checkOut=checkOut;
         this.user=user;
     }
-
-
-    public String toString(){
-        return "Room "+ room.getNumber()+" is reserved by "+user.toString();
+    public  String toString(){
+        return room.toString(checkIn,checkOut)+
+                "by "+user.toString();
     }
+
+
+
+
+
+
 }

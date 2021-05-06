@@ -4,136 +4,163 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
 public class MainFrame implements ActionListener {
-    JButton search = new JButton();
-    JTextField inDate = new JTextField();
-    JTextField outDate = new JTextField();
-    JTextField firstName = new JTextField();
-    JTextField lastName = new JTextField();
-    JTextField phone = new JTextField();
-    JTextArea hotelInfo = new JTextArea();
-    JComboBox numberOfPeople;
-    JComboBox mealPlan;
-    JButton reserve = new JButton();
-    JTextArea roomsInfo;
-    JTextField number = new JTextField();
-    JButton clear = new JButton();
-    Hotel h = new Hotel();
+    private JButton search = new JButton();
+    private JTextField inDate = new JTextField();
+    private JTextField outDate = new JTextField();
+    private JTextField firstName = new JTextField();
+    private JTextField lastName = new JTextField();
+    private JTextField phone = new JTextField();
+    private JTextArea hotelInfo = new JTextArea();
+    private JComboBox numberOfPeople;
+    private JComboBox mealPlan;
+    private JButton reserve = new JButton();
+    private JTextArea residencesInfo;
+    private JTextField number = new JTextField();
+    private JButton newRes = new JButton();
+    private Hotel h = new Hotel();
 
     MainFrame() {
-        JFrame f = new JFrame();     // creating frame
+        // creating frame
+        JFrame f = new JFrame();
 
-
-
-        hotelInfo.setText(h.toString());
-        hotelInfo.setBounds(40,40,600,75);         //Hotel description Text
-        hotelInfo.setEditable(false);
-        hotelInfo.setFont(new Font("Serif", Font.BOLD, 13));
-
-
-        clear.setBounds(730, 90, 71, 20);
-        clear.setText("Clear");                                      //clear button
-        clear.addActionListener(this);
-
-
+        //Hotel name label
         JLabel name = new JLabel();
         name.setText("Welcome to White Season Resort");
-        name.setForeground(Color.white);                             //name label
+        name.setForeground(Color.black);
         name.setFont(new Font("Serif", Font.BOLD, 20));
         name.setBounds(300,0,300,20);
 
 
-        search.setText("Search");                                    //search button
+        //Hotel description Text
+        hotelInfo.setText(h.toString());
+        hotelInfo.setBounds(40,30,400,110);
+        hotelInfo.setEditable(false);
+        hotelInfo.setFont(new Font("Serif", Font.BOLD, 13));
+
+        //new button
+        newRes.setBounds(690, 30, 140, 20);
+        newRes.setText("New Reservation");
+        newRes.addActionListener(this);
+
+
+
+        //search button
+        search.setText("Search");
         search.addActionListener(this);
-        search.setBounds(340, 310, 75, 20);
+        search.setBounds(374, 610, 75, 20);
 
+        //reserve button
+        reserve.addActionListener(this);
+        reserve.setBounds(740, 670, 90, 20);
+        reserve.setText("Reserve");
+
+        //asks to input start date
         JLabel inInfo = new JLabel();
-        inInfo.setText("Enter the start date");
+        inInfo.setText("Enter the start date (yy-mm-dd)");
         inInfo.setForeground(Color.white);
-        inInfo.setBounds(50, 120, 200, 20);        //asks to input start date
-        inDate.setBounds(250, 120, 100, 20);       // start date input place
-        inDate.setText("yy-mm-dd");
+        inInfo.setBounds(50, 150, 200, 20);
+        // start date input place
+        inDate.setBounds(250, 150, 100, 20);
 
 
-
+        //asks to input the end date
         JLabel outInfo = new JLabel();
-        outInfo.setText("Enter the end date");                       //asks to input the end date
+        outInfo.setText("Enter the end date (yy-mm-dd)");
         outInfo.setForeground(Color.white);
-        outInfo.setBounds(50, 170, 200, 20);
-        outDate.setBounds(250, 170, 100, 20);
-        outDate.setText("yy-mm-dd");                                 // end date input place
+        outInfo.setBounds(50, 200, 200, 20);
+        // end date input place
+        outDate.setBounds(250, 200, 100, 20);
 
 
-
-
+        //asks to choose number of people
         JLabel peopleInfo = new JLabel();
-        peopleInfo.setText("Choose the number of people");           //asks to choose number of people
+        peopleInfo.setText("Choose the number of people");
         peopleInfo.setForeground(Color.white);
-        peopleInfo.setBounds(50, 220, 200, 20);
+        peopleInfo.setBounds(50, 250, 200, 20);
 
-        Integer[] nums = {1, 2, 3, 4};
+
+        Integer[] nums = {1, 2, 3, 4,5,6};
+        //combo box that has variants of number 1-6
         numberOfPeople = new JComboBox(nums);
-        numberOfPeople.setBounds(250, 220, 40, 30); //combo box that has variants of number 1-4
+        numberOfPeople.setBounds(250, 250, 40, 30);
 
+        //asks to choose meal plan
         JLabel mealInfo = new JLabel();
-        mealInfo.setText("Room should be with");                      //asks to choose meal plan
+        mealInfo.setText("Room should be with");
         mealInfo.setForeground(Color.white);
-        mealInfo.setBounds(50, 270, 200, 20);
+        mealInfo.setBounds(50, 300, 200, 20);
 
         String[] meals = {"Breakfast", "Three Meal Plan"};
-        mealPlan = new JComboBox(meals);                              //combo box that has variants of meal plan breakfast and three meal
-        mealPlan.setBounds(250, 270, 100, 30);
+        //combo box that has variants of meal plan breakfast and three meal
+        mealPlan = new JComboBox(meals);
+        mealPlan.setBounds(250, 300, 100, 30);
 
+
+        // personal info label
         JLabel userLabel = new JLabel();
-        userLabel.setText("Fill the personal information");           // personal info label
+        userLabel.setText("Fill the personal information");
         userLabel.setForeground(Color.white);
         userLabel.setFont(new Font("Serif", Font.BOLD, 18));
-        userLabel.setBounds(50, 320, 270, 20);
+        userLabel.setBounds(50, 350, 270, 20);
 
+
+        //asks to input first name
         JLabel firstNameInfo = new JLabel();
-        firstNameInfo.setText("Enter your first name");             //asks to input first name
+        firstNameInfo.setText("Enter your first name");
         firstNameInfo.setForeground(Color.white);
-        firstNameInfo.setBounds(50, 370, 200, 20);
-        firstName.setBounds(250, 370, 200, 20);   //place to input the first name
+        firstNameInfo.setBounds(50, 400, 200, 20);
+        //place to input the first name
+        firstName.setBounds(250, 400, 200, 20);
 
+
+        //asks to input last name
         JLabel lastNameInfo = new JLabel();
-        lastNameInfo.setText("Enter your last name");               //asks to input last name
+        lastNameInfo.setText("Enter your last name");
         lastNameInfo.setForeground(Color.white);
-        lastNameInfo.setBounds(50, 420, 200, 20);
-        lastName.setBounds(250, 420, 200, 20);    //place to input the last name
+        lastNameInfo.setBounds(50, 450, 200, 20);
+        //place to input the last name
+        lastName.setBounds(250, 450, 200, 20);
 
+
+        //asks to input phone number
         JLabel phoneInfo = new JLabel();
-        phoneInfo.setText("Enter your phone number");               //asks to input phone number
-        phoneInfo.setBounds(50, 470, 200, 20);
+        phoneInfo.setText("Enter your phone number");
+        phoneInfo.setBounds(50, 500, 200, 20);
         phoneInfo.setForeground(Color.white);
-        phone.setBounds(250, 470, 200, 20);       //place to input the phone number
+        //place to input the phone number
+        phone.setBounds(250, 500, 200, 20);
 
-        roomsInfo = new JTextArea();
-        roomsInfo.setBounds(460, 120, 400, 400);  //textArea for available rooms info after search
-        roomsInfo.setEditable(false);
+        //textArea for available Residence info after search
+        residencesInfo = new JTextArea();
+        residencesInfo.setBounds(460, 60, 370, 570);
+        residencesInfo.setEditable(false);
 
+
+        //asks to input the room number according to the room above
         JLabel roomNumberInfo = new JLabel();
-        roomNumberInfo.setText("Enter the Room Number from above");  //asks to input the room number according to the room above
+        roomNumberInfo.setText("Enter the Room Number from above");
         roomNumberInfo.setForeground(Color.white);
-        roomNumberInfo.setBounds(460, 540, 300, 20);
-        number.setBounds(680, 540, 20, 20);        // place to input the room number
+        roomNumberInfo.setBounds(530, 640, 300, 20);
+        // place to input the room number
+        number.setBounds(810, 640, 20, 20);
 
 
-        reserve.addActionListener(this);
-        reserve.setBounds(680, 570, 90, 20);    //reserve button
-        reserve.setText("Reserve");
-        f.setContentPane(new JLabel(new ImageIcon("hotelphoto.jpg")));  //adding photo to background
+        //adding photo to background
+        f.setContentPane(new JLabel(new ImageIcon("hotelphoto.jpg")));
 
-        f.add(hotelInfo);               //adding all components
-        f.add(clear);
+
+        //adding all components
+        f.add(hotelInfo);
+        f.add(peopleInfo);
+        f.add(newRes);
         f.add(reserve);
         f.add(number);
         f.add(numberOfPeople);
-        f.add(roomsInfo);
+        f.add(residencesInfo);
         f.add(phone);
         f.add(phoneInfo);
         f.add(lastName);
@@ -152,34 +179,42 @@ public class MainFrame implements ActionListener {
         f.add(search);
         f.add(name);
 
-
-        f.setSize(900, 700);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setSize(900, 800);
         f.setTitle("White Season Resort");
 
 
         f.setVisible(true);
     }
 
-    public boolean x(JComboBox s) {
-        if (s.getSelectedIndex() == 0) return true;
-        else return false;
+    //according to the choice return string with the same name
+    public String x(JComboBox s) {
+        if (s.getSelectedIndex() == 0) return "Breakfast";
+        else return "Three Meal Plan";
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+
         try {
+
             LocalDate sd = LocalDate.parse(inDate.getText());
             LocalDate ed = LocalDate.parse(outDate.getText());
 
-            if (sd.isBefore(LocalDate.now()) || sd.isAfter(ed)) { //checking if the order of start date and end date is not right, shows appropriate message
+            //checking if the order of start date and end date is not right, throws DateMissMatchException
+            if (sd.isBefore(LocalDate.now()) || sd.isAfter(ed) &&(!inDate.getText().isEmpty() ||!outDate.getText().isEmpty())) {
                 throw new DateMissMatchException();
             }
-            if (Room.getNumberBetweenDates(sd, ed) > 30) {  //checking if the period is > than 30 days, shows appropriate message
+
+            //checking if the period is > than 30 nights or <1, throws DateOutOfPeriodException
+            if (Room.getNumberBetweenDates(sd, ed) > 30 || Room.getNumberBetweenDates(sd, ed) <1 ) {
                 throw new DateOutOfPeriodException();
             }
-            if (firstName.getText().isEmpty() ||   // checking if the personal info fields are empty, shows appropriate message
+
+            // checking if the personal info fields are empty,throws EmptyInfoException
+            if (firstName.getText().isEmpty() ||
                     lastName.getText().isEmpty() ||
                     phone.getText().isEmpty()) {
                 throw new EmptyInfoException();
@@ -187,17 +222,12 @@ public class MainFrame implements ActionListener {
             }
             if (e.getSource() == search) {
 
-
-
-
-
-
-                roomsInfo.setText((h.searchResultToString     //setting the tex of the rooms info from the method searchResultToString
-                        // that uses ArrayList from search method
+                //setting the tex of the Residence info from the method searchResultToString
+                // that uses ArrayList from search method
+                residencesInfo.setText((h.searchResultToString
                                 (h.search(sd,
                                         ed,
                                         x(mealPlan),
-                                        !x(mealPlan),
                                         numberOfPeople.getSelectedIndex() + 1),
                                         sd,
                                         ed)));
@@ -207,15 +237,20 @@ public class MainFrame implements ActionListener {
 
             }
             if (e.getSource() == reserve) {
-                ArrayList<Room> availableRooms = h.search(sd,          //saves filtered arraylist of room from search to a new Arraylist
-                        ed, x(mealPlan), !x(mealPlan),
+                //saves filtered arraylist of room from search to a new Arraylist
+                ArrayList<Residence> availableRooms = h.search(
+                        sd,
+                        ed,
+                        x(mealPlan),
                         numberOfPeople.getSelectedIndex() + 1);
                 boolean isSame = false;
                 if (availableRooms.size() > 0) {
                     for (int i = 0; i < availableRooms.size(); i++) {
+                        //checks if number of available Residence is same with the inputted number, reserves the Residence
+                        //and shows message of successful reservation
                         if (availableRooms.get(i).getNumber() == parseInt(number.getText())) {
-                            availableRooms.get(i).reserve(sd,   //checks if number of available rooms is same with the inputted number, reserves the room
-                                    ed,                         //and shows message of successful reservation
+                            availableRooms.get(i).reserve(sd,
+                                    ed,
                                     new User(firstName.getText(), lastName.getText(), phone.getText()));
                             JOptionPane.showConfirmDialog(null,
                                     "Successful Reservation",
@@ -227,27 +262,29 @@ public class MainFrame implements ActionListener {
 
                         }
                     }
-
+                    //if the input is wrong then shows the wrong input message.
                     if (isSame) {
-                        JOptionPane.showConfirmDialog(null,  //if the input is wrong then shows the wrong input message.
-                                "Wrong room number as input",
+                        JOptionPane.showConfirmDialog(null,
+                                "Wrong Number ",
                                 "Error", JOptionPane.PLAIN_MESSAGE);
                     }
                 }
 
             }
+            //clears the textField for the new reservation
+            if (e.getSource() == newRes) {
 
-            if (e.getSource() == clear) {         //clears the textField for the new reservation
-
-                inDate.setText("yy/mm/dd");
-                outDate.setText("yy/mm/dd");
+                inDate.setText("");
+                outDate.setText("");
                 firstName.setText("");
                 lastName.setText("");
                 phone.setText("");
-                roomsInfo.setText("");
+                residencesInfo.setText("");
                 number.setText("");
 
             }
+
+
         }
         catch (EmptyInfoException ex){
             JOptionPane.showConfirmDialog(null,
@@ -256,15 +293,15 @@ public class MainFrame implements ActionListener {
         }
         catch (DateOutOfPeriodException ex){
             JOptionPane.showConfirmDialog(null,
-                    "Cannot make a reservation for more than 30 days ",
+                    "Cannot make a reservation for more than 30 nights or less than 1 night ",
                     "Date Error", JOptionPane.PLAIN_MESSAGE);
         }
         catch (DateMissMatchException ex){
             JOptionPane.showConfirmDialog(null,
-                    "Wrong date input ",
+                    "Wrong date input",
                     "Date Error", JOptionPane.PLAIN_MESSAGE);
         }
-        catch (Exception ex){              // shows message wrong date input when start or end date are inputted wrong
+        catch (Exception ex){
             JOptionPane.showConfirmDialog(null,
                     "Wrong date input ",
                     "Date Error", JOptionPane.PLAIN_MESSAGE);
