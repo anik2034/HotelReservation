@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public abstract class Residence {
@@ -28,6 +27,7 @@ public abstract class Residence {
 
 
     }
+
     public int getNumberOfBeds() {
         return numberOfBeds;
     }

@@ -19,6 +19,7 @@ public class House extends Residence{
         this.numberOfBedrooms=numberOfBedrooms;
     }
 
+
     public String toString(LocalDate checkIn, LocalDate checkOut){   //returns Room's description
         return "House " + getNumber()+
                 " \nName: "+this.getName()+

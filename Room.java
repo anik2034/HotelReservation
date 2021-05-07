@@ -18,6 +18,7 @@ public class Room  extends Residence{
 
 
 
+
     public String toString(LocalDate checkIn, LocalDate checkOut){   //returns Room's description
         return "Room " + getNumber()+
                 " \nName: "+this.getName()+

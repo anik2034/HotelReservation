@@ -204,7 +204,9 @@ public class MainFrame implements ActionListener {
             LocalDate ed = LocalDate.parse(outDate.getText());
 
             //checking if the order of start date and end date is not right, throws DateMissMatchException
-            if (sd.isBefore(LocalDate.now()) || sd.isAfter(ed) &&(!inDate.getText().isEmpty() ||!outDate.getText().isEmpty())) {
+            if (sd.isBefore(LocalDate.now()) || sd.isAfter(ed)
+                    ||sd.isAfter(LocalDate.of(2021,12,31)) || ed.isAfter(LocalDate.of(2021,12,31))
+            &&(!inDate.getText().isEmpty() ||!outDate.getText().isEmpty())) {
                 throw new DateMissMatchException();
             }
 
@@ -246,6 +248,7 @@ public class MainFrame implements ActionListener {
                 boolean isSame = false;
                 if (availableRooms.size() > 0) {
                     for (int i = 0; i < availableRooms.size(); i++) {
+
                         //checks if number of available Residence is same with the inputted number, reserves the Residence
                         //and shows message of successful reservation
                         if (availableRooms.get(i).getNumber() == parseInt(number.getText())) {
@@ -255,15 +258,15 @@ public class MainFrame implements ActionListener {
                             JOptionPane.showConfirmDialog(null,
                                     "Successful Reservation",
                                     "Reservation", JOptionPane.PLAIN_MESSAGE);
-                            isSame = false;
+                            isSame = true;
                             break;
                         } else {
-                            isSame = true;
+                            isSame = false;
 
                         }
                     }
                     //if the input is wrong then shows the wrong input message.
-                    if (isSame) {
+                    if (isSame==false) {
                         JOptionPane.showConfirmDialog(null,
                                 "Wrong Number ",
                                 "Error", JOptionPane.PLAIN_MESSAGE);

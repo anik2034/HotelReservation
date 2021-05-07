@@ -29,6 +29,8 @@ public class Reservation {
         this.checkOut=checkOut;
         this.user=user;
     }
+
+
     public  String toString(){
         return room.toString(checkIn,checkOut)+
                 "by "+user.toString();
